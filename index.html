@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=UTF-8>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="main.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Open+Sans&display=swap" rel="stylesheet">
+        <title>BookBerry | Create Your Library!</title>
+    </head>
+    <body>
+        <header>
+            <h1>bookBerry</h1>
+            <span>-organize those books of yours-</span>
+        </header>
+        <main>
+            <div class="container" id="input_container">
+                <form id="bookForm">
+                    <fieldset>
+                        <legend>Author's Name</legend><br>
+                        <label for="authorFirst">First:</label>
+                        <input type="text" id="authorFirst" name="authorFirst"><br><br>
+                        <label for="authorLast">Last:</label>
+                        <input type="text" id="authorLast" name="authorLast">
+                    </fieldset>
+                    <br>
+                    <fieldset>
+                        <legend>Book Content</legend><br>
+                        <label for="bookTitle">Title:</label>
+                        <input type="text" id="bookTitle" name="bookTitle"><br>
+                        <p>Genres:</p>
+                        <input type="checkbox" id="romance" name="genre" value="romance">
+                        <label for="romance">romance</label>
+                        <input type="checkbox" id="mystery" name="genre" value="mystery">
+                        <label for="mystery">mystery</label>
+                        <input type="checkbox" id="fantasy" name="genre" value="fantasy">
+                        <label for="fantasy">fantasy</label>
+                        <input type="checkbox" id="scienceFiction" name="genre" value="scienceFiction">
+                        <label for="scienceFiction">science fiction</label>
+                        <input type="checkbox" id="thriller" name="genre" value="thriller">
+                        <label for="thriller">thriller</label>
+                        <input type="checkbox" id="horror" name="genre" value="horror">
+                        <label for="horror">horror</label>
+                        <input type="checkbox" id="youngAdult" name="genre" value="youngAdult">
+                        <label for="youngAdult">young adult</label>
+                        <input type="checkbox" id="childrenFiction" name="genre" value="childrenFiction">
+                        <label for="childrenFiction">children's fiction</label>
+                    </fieldset>
+                    <br>
+                    <fieldset>
+                        <legend>Book Info</legend><br>
+                        <label for="pubDate">Published:</label>
+                        <input type="date" id="pubDate" name="pubDate"><br><br>
+                        <label for="edition">Edition:</label>
+                        <input type="number" id="edition" name="edition"><br><br>
+                        <label for="pages">Pages:</label>
+                        <input type="number" id="pages" name="pages" placeholder="total number of pages"><br>
+                        <p>Format:</p>
+                        <input type="checkbox" id="paperback" name="format" value="paperback">
+                        <label for="paperback">paperback</label>
+                        <input type="checkbox" id="hardcover" name="format" value="hardcover"><label for="hardcover">hardcover</label>
+                        <input type="checkbox" id="ebook" name="format" value="ebook"><label for="ebook">ebook</label>
+                        <input type="checkbox" id="pdf" name="format" value="pdf"><label for="pdf">pdf</label>
+                    </fieldset>
+                    <br>
+                    <fieldset>
+                        <legend>Progress</legend>
+                        <p>Have You Read This Book?</p>
+                        <input type="radio" id="notRead" name="progress" value="no"><label for="notRead">no</label>
+                        <input type="radio" id="partialRead" name="progress" value="partially"><label for="partialRead">partially</label>
+                        <input type="radio" id="yesRead" name="progress"><label for="yesRead" value="yes">yes</label>
+                    </fieldset>
+                </form><br>
+                <button type="submit" id="form_submit">add book to library</button>
+            </div>
+        </main>
+        <footer>
+            developed by a.m.hernandez &copy;2021
+        </footer>
+        <script src="bookBerry.js"></script>
+    </body>
+</html>
