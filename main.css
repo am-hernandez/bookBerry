@@ -1,55 +1,68 @@
 body {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 100vh;
-    background-color: #e9c46a;
-    font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  background-color: #e9c46a;
+  font-family: "Open Sans", sans-serif;
 }
 
 header {
-    margin-bottom: 2rem;
-    border-bottom: solid 8px #2a9d8f;
-    padding: 1em;
-    background-color: #264653;
-    color: #f4a261;
+  margin-bottom: 2rem;
+  border-bottom: solid 8px #2a9d8f;
+  padding: 1em;
+  background-color: #264653;
+  color: #f4a261;
 }
 
 main {
-    padding: 1em;
-    background-color: #ebd294;
+  padding: 1em;
+  background-color: #ebd294;
 }
 
 footer {
-    margin-top: 2rem;
-    border-top: solid 8px #f4a261;
-    padding: 1em;
-    text-align: center;
-    background-color: #e76f51;
+  margin-top: 2rem;
+  border-top: solid 8px #f4a261;
+  padding: 1em;
+  text-align: center;
+  background-color: #e76f51;
 }
 
 button {
-    width: 100%;
-    height: 3em;
-    font-family: 'Luckiest Guy', cursive;
-    font-size: 1em;
-    background-color: #f4a261;
-    color: #264653;
-    text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+  height: 3em;
+  font-family: "Luckiest Guy", cursive;
+  font-size: 1em;
+  background-color: #f4a261;
+  color: #264653;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
 }
 
 h1 {
-    margin: 0;
-    font-family: 'Luckiest Guy', cursive;
-    font-size: 3em;
-    text-shadow: 2px 2px rgba(0, 0, 0, 0.5);
+  margin: 0;
+  font-family: "Luckiest Guy", cursive;
+  font-size: 3em;
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+#form_submit {
+  width: 50%;
+  /* float: left; */
+}
+
+#bookshelf {
+  width: fit-content;
+  float: right;
+}
+
+.hidden {
+  display: none;
 }
 
 @media screen and (min-width: 768px) {
-    main {
-        margin: auto;
-        padding: 1em 2em;
-        max-width: 1000px;
-    }
+  main {
+    margin: auto;
+    padding: 1em 2em;
+    max-width: 1000px;
+  }
 }
