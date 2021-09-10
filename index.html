@@ -18,7 +18,6 @@
     <header>
       <h1>bookBerry</h1>
       <span> -organize those books of yours- </span>
-      <!-- <span class="hidden" id="bookshelf">View Books</span> -->
     </header>
     <main>
       <div class="container" id="input_container">
@@ -73,11 +72,11 @@
             <label for="youngAdult">young adult</label>
             <input
               type="checkbox"
-              id="childrenFiction"
+              id="nonFiction"
               name="genre"
-              value="childrenFiction"
+              value="nonFiction"
             />
-            <label for="childrenFiction">children's fiction</label>
+            <label for="nonFiction">non-fiction</label>
           </fieldset>
           <br />
           <fieldset>
@@ -93,12 +92,7 @@
               value="0"
             /><br /><br />
             <label for="pages">Pages:</label>
-            <input
-              type="number"
-              id="pages"
-              name="pages"
-              placeholder="total number of pages"
-            /><br />
+            <input type="number" id="pages" name="pages" value="1" /><br />
             <p>Format:</p>
             <input
               type="checkbox"
@@ -149,7 +143,7 @@
         <br />
         <button type="submit" id="form_submit">add book to library</button>
         <button type="submit" class="hidden" id="bookshelf">
-          save your library!
+          download your library!
         </button>
       </div>
     </main>

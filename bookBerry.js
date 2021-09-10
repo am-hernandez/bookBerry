@@ -83,9 +83,10 @@ function download(filename, text) {
   var element = document.createElement("a");
   element.setAttribute(
     "href",
-    "data:text/javascript," + encodeURIComponent(text)
+    "data:application/json," + encodeURIComponent(text)
   );
   element.setAttribute("download", filename);
+  element.setAttribute("target", "_blank");
 
   element.style.display = "none";
   document.body.appendChild(element);
@@ -114,25 +115,25 @@ bookshelf.addEventListener("click", function () {
     with string array of book objects
   */
   let text =
-    "const library = {\n" +
+    `"library": {\n` +
     shelfArr.reduce((collection, book, index) => {
-      let bookStr = `\tbook${index}: {\n`;
+      let bookStr = `\t"book${index}": {\n`;
       for (const key in book) {
         if (Array.isArray(book[key])) {
           let keyArr = book[key].reduce((a, b, index) => {
             if (index === book[key].length - 1) {
-              a += `'${b}'`;
+              a += `"${b}"`;
               return a;
             } else {
-              a += `'${b}', `;
+              a += `"${b}", `;
               return a;
             }
           }, []);
-          bookStr += `\t\t${key}: [${keyArr}],\n`;
+          bookStr += `\t\t"${key}": [${keyArr}],\n`;
         } else if (typeof book[key] === "number") {
-          bookStr += `\t\t${key}: ${book[key]},\n`;
+          bookStr += `\t\t"${key}": ${book[key]},\n`;
         } else if (typeof book[key] === "string") {
-          bookStr += `\t\t${key}: "${book[key]}",\n`;
+          bookStr += `\t\t"${key}": "${book[key]}",\n`;
         }
       }
       collection += bookStr + "\t},\n";
