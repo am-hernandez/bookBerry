@@ -42,6 +42,7 @@ class Book {
 // factory function to make Book instances
 function bookFactory() {
   // set variables to target elements in DOM after they have been filled
+  let bookForm = document.getElementById("bookForm");
   let title = document.getElementById("bookTitle").value;
   let authorFirst = document.getElementById("authorFirst").value;
   let authorLast = document.getElementById("authorLast").value;
@@ -64,7 +65,7 @@ function bookFactory() {
       formatArr.push(checkbox.value);
     }
   });
-
+  bookForm.reset(); // Reset all form data
   return new Book(
     title,
     authorFirst,
@@ -78,7 +79,7 @@ function bookFactory() {
   );
 }
 
-// download list of book objects created
+// download function to download the library file created
 function download(filename, text) {
   var element = document.createElement("a");
   element.setAttribute(
@@ -86,7 +87,6 @@ function download(filename, text) {
     "data:application/json," + encodeURIComponent(text)
   );
   element.setAttribute("download", filename);
-  element.setAttribute("target", "_blank");
 
   element.style.display = "none";
   document.body.appendChild(element);
@@ -96,32 +96,38 @@ function download(filename, text) {
   document.body.removeChild(element);
 }
 
-// create bookshelf
-let bookshelf = document.getElementById("bookshelf");
-let shelfArr = [];
+// target the button for downloading the library file
+let download_lib = document.getElementById("download_lib");
+// create the library array
+let libraryArr = [];
 
 // target button for form submission
 const form_submit = document.getElementById("form_submit");
 
-// on button submit create new instance of class Book
+// on form button submit create new instance of class Book
 form_submit.addEventListener("click", function () {
-  shelfArr.push(bookFactory()); //push book obj to shelf arr
-  bookshelf.classList.remove("hidden");
+  libraryArr.push(bookFactory()); //push book obj to libraryArr
+  download_lib.classList.remove("hidden");
 });
 
-bookshelf.addEventListener("click", function () {
+// initiate download of library file when download_lib is clicked
+download_lib.addEventListener("click", function () {
   /*
     generate download file and populate the file 
-    with string array of book objects
+    with string array of book objects. This string (text)
+    will follow JSON syntax
   */
   let text =
-    `"library": {\n` +
-    shelfArr.reduce((collection, book, index) => {
+    `{\n` +
+    libraryArr.reduce((collection, book, index) => {
       let bookStr = `\t"book${index}": {\n`;
-      for (const key in book) {
-        if (Array.isArray(book[key])) {
-          let keyArr = book[key].reduce((a, b, index) => {
-            if (index === book[key].length - 1) {
+      let bookArr = Object.entries(book);
+      for (let i = 0; i < bookArr.length; i++) {
+        let keyName = bookArr[i][0];
+        let keyVal = bookArr[i][1];
+        if (Array.isArray(keyVal)) {
+          let keyArr = keyVal.reduce((a, b, arrIndex) => {
+            if (arrIndex === keyVal.length - 1) {
               a += `"${b}"`;
               return a;
             } else {
@@ -129,17 +135,27 @@ bookshelf.addEventListener("click", function () {
               return a;
             }
           }, []);
-          bookStr += `\t\t"${key}": [${keyArr}],\n`;
-        } else if (typeof book[key] === "number") {
-          bookStr += `\t\t"${key}": ${book[key]},\n`;
-        } else if (typeof book[key] === "string") {
-          bookStr += `\t\t"${key}": "${book[key]}",\n`;
+          bookStr += `\t\t"${keyName}": [${keyArr}],\n`;
+        } else if (typeof keyVal === "number") {
+          bookStr += `\t\t"${keyName}": ${keyVal},\n`;
+        } else if (typeof keyVal === "string") {
+          bookStr += `\t\t"${keyName}": "${keyVal}",\n`;
+        }
+        if (i === bookArr.length - 1) {
+          let startStr = bookStr.slice(0, -2);
+          let endStr = bookStr.slice(-1);
+          bookStr = startStr + endStr;
         }
       }
       collection += bookStr + "\t},\n";
+      if (index === libraryArr.length - 1) {
+        let startStr = collection.slice(0, -2);
+        let endStr = collection.slice(-1);
+        collection = startStr + endStr;
+      }
       return collection;
     }, "") +
-    "};\n";
+    "}\n";
   let filename = "bookBerry_download";
   download(filename, text);
 });
