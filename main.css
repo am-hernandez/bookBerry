@@ -14,6 +14,7 @@ header {
   padding: 1em;
   background-color: #264653;
   color: #f4a261;
+  text-align: center;
 }
 
 main {
@@ -31,11 +32,20 @@ footer {
 
 button {
   height: 3em;
+  margin: 0 0 1rem;
   font-family: "Luckiest Guy", cursive;
   font-size: 1em;
   background-color: #f4a261;
   color: #264653;
   text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+}
+button:hover {
+  background-color: #e76f51;
+  transition: background-color 2s;
+}
+button:active {
+  color: #e9c46a;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
 }
 
 h1 {
@@ -45,17 +55,31 @@ h1 {
   text-shadow: 2px 2px rgba(0, 0, 0, 0.5);
 }
 
-#form_submit {
-  width: 50%;
-}
-
-#bookshelf {
-  width: fit-content;
-  float: right;
+#formButtons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .hidden {
   display: none;
+}
+
+@media screen and (min-width: 500px) {
+  header {
+    text-align: left;
+  }
+  #form_submit {
+    width: 50%;
+  }
+  #formButtons {
+    display: block;
+  }
+  #download_lib {
+    width: fit-content;
+    float: right;
+  }
 }
 
 @media screen and (min-width: 768px) {
