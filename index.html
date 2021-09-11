@@ -87,12 +87,19 @@
             <label for="edition">Edition:</label>
             <input
               type="number"
+              onfocus="this.select()"
               id="edition"
               name="edition"
-              value="0"
+              value="1"
             /><br /><br />
             <label for="pages">Pages:</label>
-            <input type="number" id="pages" name="pages" value="1" /><br />
+            <input
+              type="number"
+              onfocus="this.select()"
+              id="pages"
+              name="pages"
+              value="1"
+            /><br />
             <p>Format:</p>
             <input
               type="checkbox"
@@ -141,10 +148,12 @@
           </fieldset>
         </form>
         <br />
-        <button type="submit" id="form_submit">add book to library</button>
-        <button type="submit" class="hidden" id="bookshelf">
-          download your library!
-        </button>
+        <div id="formButtons">
+          <button type="submit" id="form_submit">add book to library</button>
+          <button type="submit" class="hidden" id="download_lib">
+            download your library!
+          </button>
+        </div>
       </div>
     </main>
     <footer>developed by a.m.hernandez &copy;2021</footer>
