@@ -6,7 +6,7 @@ class Book {
     authorFirst,
     authorLast,
     pubDate,
-    genreArr,
+    genres,
     edition,
     pages,
     formatArr,
@@ -15,7 +15,7 @@ class Book {
     this.title = title;
     this.authorFirst = authorFirst;
     this.authorLast = authorLast;
-    this.genre = genreArr;
+    this.genre = genres;
     this.pubDate = pubDate;
     this.edition = edition;
     this.pages = pages;
@@ -42,39 +42,33 @@ class Book {
 // factory function to make Book instances
 function bookFactory() {
   // set variables to target elements in DOM after they have been filled
-  let bookForm = document.getElementById("bookForm");
-  let title = document.getElementById("bookTitle").value;
-  let authorFirst = document.getElementById("authorFirst").value;
-  let authorLast = document.getElementById("authorLast").value;
-  let genre = document.getElementsByName("genre");
-  let pubDate = document.getElementById("pubDate").value;
-  let edition = parseInt(document.getElementById("edition").value);
-  let pages = parseInt(document.getElementById("pages").value);
-  let format = document.getElementsByName("format");
-  let progress = document.forms.bookForm.elements.progress.value;
-  // get checked checkboxes into an array
-  let genreArr = [];
-  genre.forEach((checkbox) => {
-    if (checkbox.checked) {
-      genreArr.push(checkbox.value);
-    }
-  });
-  let formatArr = [];
-  format.forEach((checkbox) => {
-    if (checkbox.checked) {
-      formatArr.push(checkbox.value);
-    }
-  });
-  bookForm.reset(); // Reset all form data
+  const bookForm = document.getElementById("bookForm");
+  const title = document.getElementById("bookTitle").value;
+  const authorFirst = document.getElementById("authorFirst").value;
+  const authorLast = document.getElementById("authorLast").value;
+  const pubDate = document.getElementById("pubDate").value;
+  const edition = parseInt(document.getElementById("edition").value);
+  const pages = parseInt(document.getElementById("pages").value);
+  const progress = parseInt(document.getElementById("progress").value);
+  const genres = Array.from(
+    document.querySelectorAll("input[name=genre]:checked")
+  ).map((genre) => genre.value);
+  const formats = Array.from(
+    document.querySelectorAll("input[name=format]:checked")
+  ).map((format) => format.value);
+
+  // Reset all form data
+  bookForm.reset();
+
   return new Book(
     title,
     authorFirst,
     authorLast,
     pubDate,
-    genreArr,
+    genres,
     edition,
     pages,
-    formatArr,
+    formats,
     progress
   );
 }
@@ -96,6 +90,12 @@ function download(filename, text) {
   document.body.removeChild(element);
 }
 
+// target the span element progress_percentage
+const progressPercentage = document.getElementById("progress_percentage");
+
+// target the slider
+const progress = document.getElementById("progress");
+
 // target the button for downloading the library file
 let download_lib = document.getElementById("download_lib");
 // create the library array
@@ -113,49 +113,14 @@ form_submit.addEventListener("click", function () {
 // initiate download of library file when download_lib is clicked
 download_lib.addEventListener("click", function () {
   /*
-    generate download file and populate the file 
-    with string array of book objects. This string (text)
-    will follow JSON syntax
+    creates JSON of library and begins download
   */
-  let text =
-    `{\n` +
-    libraryArr.reduce((collection, book, index) => {
-      let bookStr = `\t"book${index}": {\n`;
-      let bookArr = Object.entries(book);
-      for (let i = 0; i < bookArr.length; i++) {
-        let keyName = bookArr[i][0];
-        let keyVal = bookArr[i][1];
-        if (Array.isArray(keyVal)) {
-          let keyArr = keyVal.reduce((a, b, arrIndex) => {
-            if (arrIndex === keyVal.length - 1) {
-              a += `"${b}"`;
-              return a;
-            } else {
-              a += `"${b}", `;
-              return a;
-            }
-          }, []);
-          bookStr += `\t\t"${keyName}": [${keyArr}],\n`;
-        } else if (typeof keyVal === "number") {
-          bookStr += `\t\t"${keyName}": ${keyVal},\n`;
-        } else if (typeof keyVal === "string") {
-          bookStr += `\t\t"${keyName}": "${keyVal}",\n`;
-        }
-        if (i === bookArr.length - 1) {
-          let startStr = bookStr.slice(0, -2);
-          let endStr = bookStr.slice(-1);
-          bookStr = startStr + endStr;
-        }
-      }
-      collection += bookStr + "\t},\n";
-      if (index === libraryArr.length - 1) {
-        let startStr = collection.slice(0, -2);
-        let endStr = collection.slice(-1);
-        collection = startStr + endStr;
-      }
-      return collection;
-    }, "") +
-    "}\n";
+  let json = JSON.stringify(libraryArr);
   let filename = "bookBerry_download";
-  download(filename, text);
+  download(filename, json);
 });
+
+// update progress percentage number whenever slider is moved
+progress.oninput = () => {
+  progressPercentage.innerText = progress.value;
+};

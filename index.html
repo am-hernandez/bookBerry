@@ -127,30 +127,15 @@
           </fieldset>
           <br />
           <fieldset>
-            <legend>Progress</legend>
+            <legend>Progress: <span id="progress_percentage"></span></legend>
             <p>Have You Read This Book?</p>
-            <input type="radio" id="notRead" name="progress" value="no" /><label
-              for="notRead"
-              >no</label
-            >
-            <input
-              type="radio"
-              id="partialRead"
-              name="progress"
-              value="partially"
-            /><label for="partialRead">partially</label>
-            <input
-              type="radio"
-              id="yesRead"
-              name="progress"
-              value="yes"
-            /><label for="yesRead">yes</label>
+            <input type="range" min="0" max="100" value="0" class="slider" id="progress">
           </fieldset>
         </form>
         <br />
         <div id="formButtons">
           <button type="submit" id="form_submit">add book to library</button>
-          <button type="submit" class="hidden" id="download_lib">
+          <button class="hidden" id="download_lib">
             download your library!
           </button>
         </div>
