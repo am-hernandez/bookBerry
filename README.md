@@ -1,4 +1,5 @@
 # bookBerry
+![BookBerry](https://raw.githubusercontent.com/am-hernandez/bookBerry/main/book-berry.png)
 
 bookBerry is a simple tool to help organize your books.
 
